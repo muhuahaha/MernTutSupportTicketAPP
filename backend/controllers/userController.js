@@ -1,36 +1,60 @@
-
-
 const asyncHandler = require('express-async-handler');
+const bcrypt = require('bcryptjs');
 
+const User = require('../models/userModel');
 
-
-
-// @desc Register a new userRoutes
-// @route / api/users
+// @desc Register a new user
+// @route /api/user
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
-  console.log(req.body)
-  const {name, email, password} = req.body
+  console.log(req.body);
+  const { name, email, password } = req.body;
 
-  if(!name || !email || !password) {
-    res.status(400)
-    throw new Error('Please include all fields')
+  // Validation
+  if (!name || !email || !password) {
+    res.status(400);
+    throw new Error('Please include all fields');
   }
-  console.log(name)
-  console.log(email)
-  console.log(password)
 
-  res.send('Register Route')
-})
+  // Find if user already exists
 
-// @desc Login a user
-// @route / api/users/login
+  const userExits = await User.findOne({ email });
+
+  if (userExits) {
+    res.status(400);
+    throw new Error('User already exists');
+  }
+
+  // Hash password
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  // Create User
+
+  const user = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+  });
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
+});
+
+// @desc Login a new user
+// @route /api/user/login
 // @access Public
 const loginUser = asyncHandler(async (req, res) => {
-  res.send('Login Route')
-})
+  res.send('Login Route');
+});
 
-module.exports = {
-  registerUser,
-  loginUser
-}
+module.exports = { registerUser, loginUser };
