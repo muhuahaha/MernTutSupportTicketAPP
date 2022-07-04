@@ -23,7 +23,7 @@ function Register() {
     e.preventDefault();
     console.log(e.target.value, 'asdasdas');
     console.log(name, 'named');
-    console.log(email, 'ema');
+    console.log(email, 'email');
     if (password !== password2) {
       toast.error('password do not match');
     }
