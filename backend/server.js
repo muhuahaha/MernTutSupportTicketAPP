@@ -1,6 +1,8 @@
 console.log('Server....');
 
 const express = require('express');
+const cors = require('cors');
+
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors');
 // eslint-disable-next-line no-unused-vars
@@ -14,6 +16,7 @@ const PORT = process.env.PORT || 8000;
 connectDB();
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
