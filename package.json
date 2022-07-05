@@ -1,6 +1,5 @@
 {
   "name": "mern-support-ticket",
-  "proxy": "http://localhost:8000",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -22,6 +21,7 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.1",
+    "sass": "^1.53.0",
     "vite-plugin-ssr": "^0.3.64"
   },
   "devDependencies": {
