@@ -42,6 +42,7 @@ function Header() {
           </>
         )}
       </ul>
+      <div><Link to="/counter">Counter</Link></div>
     </header>
   );
 }
