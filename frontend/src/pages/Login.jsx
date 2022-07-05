@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import { FaSignInAlt } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
-import { login, reset } from "../features/auth/authSlice";
-import {useNavigate} from 'react-router-dom'
-import Spinner from "../components/Spinner";
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { FaSignInAlt } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { login, reset } from '../features/auth/authSlice';
+import Spinner from '../components/Spinner';
 
 function Login() {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const { email, password } = formData;
@@ -43,8 +43,8 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.value, "asdasdas");
-    console.log(email, "email");
+    console.log(e.target.value, 'asdasdas');
+    console.log(email, 'email');
 
     const userData = {
       email,
@@ -54,8 +54,8 @@ function Login() {
     dispatch(login(userData));
   };
 
-  if(isLoading) {
-    return <Spinner />
+  if (isLoading) {
+    return <Spinner />;
   }
 
   return (

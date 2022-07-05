@@ -1,10 +1,12 @@
-import React from 'react'
-import Counter from '../features/counter/Counter'
+import React from 'react';
+import Counter from '../features/counter/Counter';
 
 function CounterDisplay() {
   return (
-    <div><Counter /></div>
-  )
+    <div>
+      <Counter />
+    </div>
+  );
 }
 
-export default CounterDisplay
+export default CounterDisplay;

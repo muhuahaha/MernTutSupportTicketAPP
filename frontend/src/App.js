@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Header from './components/Header';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import CounterDisplay from './pages/CounterDisplay'
+import CounterDisplay from './pages/CounterDisplay';
 
 function App() {
   return (

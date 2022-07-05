@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   increment,
   decrement,
   reset,
   mundo,
   incrementByAmount,
-} from "./counterSlice";
+} from './counterSlice';
 
 const Counter = () => {
   const count = useSelector((state) => state.counter.count);
   const dispatch = useDispatch();
-  console.log(count, "count");
+  console.log(count, 'count');
 
   const [incrementAmount, setIncrementAmount] = useState(0);
 
@@ -46,14 +46,22 @@ const Counter = () => {
     <section>
       <div className="d-flex justify-space-around bg-slate-300 p-md">
         <p className="bg-slate-100 p-sm">{count}</p>
-        <button className="btn" onClick={() => dispatch(increment())}>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => dispatch(increment())}
+        >
           +
         </button>
-        <button className="btn" onClick={() => dispatch(decrement())}>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => dispatch(decrement())}
+        >
           -
         </button>
 
-        <button className="btn" onClick={() => dispatch(mundo())}>
+        <button type="button" className="btn" onClick={() => dispatch(mundo())}>
           mundo
         </button>
       </div>
@@ -64,14 +72,19 @@ const Counter = () => {
         onChange={(e) => setIncrementAmount(e.target.value)}
       />
       <div className="d-flex justify-space-around bg-slate-300 p-md m-md">
-        {" "}
+        {' '}
         <button
+          type="button"
           className="btn"
           onClick={() => dispatch(incrementByAmount(addValue))}
         >
           Add Amount
         </button>
-        <button className="btn" onClick={() => dispatch(resetAll())}>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => dispatch(resetAll())}
+        >
           reset
         </button>
       </div>
