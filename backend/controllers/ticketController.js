@@ -24,6 +24,8 @@ const getTickets = asyncHandler(async (req, res) => {
 // @desc     Get user ticket
 // @route    GET /api/tickets/:id
 // @access   Private
+
+
 const getTicket = asyncHandler(async (req, res) => {
   // Get user using the id in the JWT
   const user = await User.findById(req.user.id);
@@ -55,7 +57,7 @@ const createTicket = asyncHandler(async (req, res) => {
 
   if (!product || !description) {
     res.status(400);
-    throw new Error("Please add a product and description");
+      throw new Error("Please add a product and description");
   }
 
   // Get user using the id in the JWT
@@ -93,7 +95,7 @@ const deleteTicket = asyncHandler(async (req, res) => {
   if (!ticket) {
     res.status(404);
     throw new Error("Ticket not found");
-  }
+    }
 
   if (ticket.user.toString() !== req.user.id) {
     res.status(401);
