@@ -2,22 +2,20 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { createTicket, reset } from '../features/tickets/ticketSlice';
+import { createPost, reset } from '../features/posts/postSlice';
 import Spinner from '../components/Spinner';
 import BackButton from '../components/BackButton';
 
-function NewTicket() {
+function NewPost() {
   const { isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.tickets
+    (state) => state.posts
   );
 
   const { user } = useSelector((state) => state.auth);
-  console.log(user, 'user hallo');
   const [name, setName] = useState(user.name);
-
   const [email, setEmail] = useState(user.email);
-  const [product, setProduct] = useState();
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +27,7 @@ function NewTicket() {
 
     if (isSuccess) {
       dispatch(reset());
-      navigate('/tickets');
+      navigate('/posts');
     }
 
     dispatch(reset());
@@ -38,7 +36,7 @@ function NewTicket() {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.value);
-    dispatch(createTicket({ product, description }));
+    dispatch(createPost({ title, content }));
   };
 
   if (isLoading) {
@@ -48,8 +46,9 @@ function NewTicket() {
   return (
     <>
       <BackButton url="/" />
+
       <section className="heading">
-        <h1>Create New Ticket</h1>
+        <h1>Create New Post</h1>
         <p>Please fill out the form below</p>
       </section>
 
@@ -67,31 +66,26 @@ function NewTicket() {
         </div>
         <form onSubmit={onSubmit}>
           <div className="form-group">
-            <label htmlFor="product">Product</label>
-            <select
-              name="product"
-              id="product"
-              value={product}
-              onChange={(e) => setProduct(e.target.value)}
-            >
-              <option value="" selected disabled hidden>
-                Choose here
-              </option>
-              <option value="iPhone">iPhone</option>
-              <option value="MacBook Pro">MacBook Pro</option>
-              <option value="iMac">iMac</option>
-              <option value="iPad">iPad</option>
-            </select>
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              className="form-control"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </div>
           <div className="form-group">
-            <label htmlFor="description">Description of the issue</label>
+            <label htmlFor="description">Content</label>
             <textarea
               name="description"
               id="description"
               className="form-control"
               placeholder="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
           </div>
           <div className="form-group">
@@ -101,11 +95,8 @@ function NewTicket() {
           </div>
         </form>
       </section>
-      <section className="form">
-        <h1>asdas</h1>
-      </section>
     </>
   );
 }
 
-export default NewTicket;
+export default NewPost;

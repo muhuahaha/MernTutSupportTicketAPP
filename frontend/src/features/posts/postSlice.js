@@ -1,22 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import ticketService from './ticketService';
+import postService from './postService';
 
 const initialState = {
-  tickets: [],
-  ticket: {},
+  posts: [],
+  post: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: '',
 };
 
-// Create new ticket
-export const createTicket = createAsyncThunk(
-  'tickets/create',
-  async (ticketData, thunkAPI) => {
+// create new Post
+export const createPost = createAsyncThunk(
+  'posts/create',
+  async (postData, thunkAPI) => {
+    console.log(postData, 'postData');
+
     try {
       const { token } = thunkAPI.getState().auth.user;
-      return await ticketService.createTicket(ticketData, token);
+      return await postService.createPost(postData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -30,13 +32,13 @@ export const createTicket = createAsyncThunk(
   }
 );
 
-// Get user tickets
-export const getTickets = createAsyncThunk(
-  'tickets/getAll',
+// Get user Posts
+export const getPosts = createAsyncThunk(
+  'posts/getAll',
   async (_, thunkAPI) => {
     try {
       const { token } = thunkAPI.getState().auth.user;
-      return await ticketService.getTickets(token);
+      return await postService.getPosts(token);
     } catch (error) {
       const message =
         (error.response &&
@@ -50,13 +52,13 @@ export const getTickets = createAsyncThunk(
   }
 );
 
-// Get user ticket
-export const getTicket = createAsyncThunk(
-  'tickets/get',
-  async (ticketId, thunkAPI) => {
+// Get user Post
+export const getPost = createAsyncThunk(
+  'posts/get',
+  async (postId, thunkAPI) => {
     try {
       const { token } = thunkAPI.getState().auth.user;
-      return await ticketService.getTicket(ticketId, token);
+      return await postService.getPost(postId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -71,12 +73,12 @@ export const getTicket = createAsyncThunk(
 );
 
 // Close ticket
-export const closeTicket = createAsyncThunk(
-  'tickets/close',
-  async (ticketId, thunkAPI) => {
+export const closePost = createAsyncThunk(
+  'posts/close',
+  async (postId, thunkAPI) => {
     try {
       const { token } = thunkAPI.getState().auth.user;
-      return await ticketService.closeTicket(ticketId, token);
+      return await postService.closeTicket(postId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -90,62 +92,60 @@ export const closeTicket = createAsyncThunk(
   }
 );
 
-export const ticketSlice = createSlice({
-  name: 'ticket',
+export const postSlice = createSlice({
+  name: 'post',
   initialState,
   reducers: {
     reset: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createTicket.pending, (state) => {
+      .addCase(createPost.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createTicket.fulfilled, (state) => {
+      .addCase(createPost.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(createTicket.rejected, (state, action) => {
+      .addCase(createPost.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(getTickets.pending, (state) => {
+      .addCase(getPosts.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getTickets.fulfilled, (state, action) => {
+      .addCase(getPosts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.tickets = action.payload;
+        state.posts = action.payload;
       })
-      .addCase(getTickets.rejected, (state, action) => {
+      .addCase(getPosts.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(getTicket.pending, (state) => {
+      .addCase(getPost.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getTicket.fulfilled, (state, action) => {
+      .addCase(getPost.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.ticket = action.payload;
+        state.post = action.payload;
       })
-      .addCase(getTicket.rejected, (state, action) => {
+      .addCase(getPost.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(closeTicket.fulfilled, (state, action) => {
+      .addCase(closePost.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.tickets.map((ticket) =>
-          ticket._id === action.payload._id
-            ? (ticket.status = 'closed')
-            : ticket
+        state.posts.map((post) =>
+          post._id === action.payload._id ? (post.status = 'closed') : post
         );
       });
   },
 });
 
-export const { reset } = ticketSlice.actions;
-export default ticketSlice.reducer;
+export const { reset } = postSlice.actions;
+export default postSlice.reducer;

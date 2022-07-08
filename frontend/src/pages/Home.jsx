@@ -15,6 +15,17 @@ function Home() {
       <Link to="/tickets" className="btn btn-block ">
         <FaTicketAlt /> View My Tickets
       </Link>
+      <div>
+        <div>
+          <h1>Posts</h1>
+        </div>
+        <Link to="/new-post" className="btn btn-reverse btn-block ">
+          <FaQuestionCircle /> Create New Post
+        </Link>
+        <Link to="/posts" className="btn btn-block ">
+          <FaTicketAlt /> View My Post
+        </Link>
+      </div>
     </>
   );
 }

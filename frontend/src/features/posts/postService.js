@@ -1,22 +1,22 @@
 import axios from 'axios';
 
-const API_URL = '/api/tickets/';
+const API_URL = '/api/posts/';
 
-// Create new ticket
-const createTicket = async (ticketData, token) => {
+// Create new Post
+const createPost = async (postData, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.post(API_URL, ticketData, config);
+  const response = await axios.post(API_URL, postData, config);
 
   return response.data;
 };
 
-// Get user tickets
-const getTickets = async (token) => {
+// Get user Post
+const getPosts = async (token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -28,21 +28,21 @@ const getTickets = async (token) => {
   return response.data;
 };
 
-// Get user ticket
-const getTicket = async (ticketId, token) => {
+// Get user post
+const getPost = async (postId, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.get(API_URL + ticketId, config);
+  const response = await axios.get(API_URL + postId, config);
 
   return response.data;
 };
 
-// Close ticket
-const closeTicket = async (ticketId, token) => {
+// Close Post
+const closePost = async (postId, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ const closeTicket = async (ticketId, token) => {
   };
 
   const response = await axios.put(
-    API_URL + ticketId,
+    API_URL + postId,
     { status: 'closed' },
     config
   );
@@ -59,10 +59,10 @@ const closeTicket = async (ticketId, token) => {
 };
 
 const ticketService = {
-  createTicket,
-  getTickets,
-  getTicket,
-  closeTicket,
+  createPost,
+  getPosts,
+  getPost,
+  closePost,
 };
 
 export default ticketService;

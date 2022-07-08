@@ -16,6 +16,7 @@ const initialState = {
 // Register new user
 export const register = createAsyncThunk(
   'auth/register',
+  // eslint-disable-next-line no-shadow
   async (user, thunkAPI) => {
     console.log(user, 'user');
 
@@ -35,6 +36,7 @@ export const register = createAsyncThunk(
 );
 
 // Login User
+// eslint-disable-next-line no-shadow
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
   console.log(user, 'user');
   try {
@@ -51,7 +53,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 
 // logout user
 export const logout = createAsyncThunk('auth/logout', async () => {
-  await authService.logout();
+  await authService.logout;
 });
 
 export const authSlice = createSlice({
@@ -97,7 +99,7 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
-        console.log('huhuhu user auf null?', state.user)
+        console.log('huhuhu user');
       });
   },
 });
